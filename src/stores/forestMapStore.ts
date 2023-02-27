@@ -169,7 +169,7 @@ const INITIAL_LAYERS = [
 	}),
 	new GeoJsonLayer({
 		id: 'vegetation-fine-geojson',
-		data: '/vegetation_fine_grabels_light.geojson',
+		data: '/vegetation_fine_grabels.geojson',
 		pickable: true,
 		visible: true,
 		stroked: false,
