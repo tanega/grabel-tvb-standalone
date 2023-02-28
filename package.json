@@ -62,5 +62,8 @@
 		"vite-plugin-top-level-await": "^1.2.4",
 		"vite-plugin-wasm": "^3.2.1"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@types/geojson": "^7946.0.10"
+	}
 }

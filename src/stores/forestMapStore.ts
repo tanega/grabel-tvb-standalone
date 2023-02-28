@@ -1,14 +1,25 @@
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import { MVTLayer } from '@deck.gl/geo-layers/typed';
+import type { LayerData } from '@deck.gl/core/typed';
 import { GeoJsonLayer } from '@deck.gl/layers/typed';
-import type { Feature, Geometry, GeoJsonProperties } from 'geojson';
+import type { Feature, Geometry, GeoJsonProperties, FeatureCollection } from 'geojson';
+import * as turf from '@turf/turf';
 import { merge } from 'rambda';
 // import cadastreData from "./grabels_cadastre_parcelles_4326.geojson"
 
 // import type { Layer } from '@deck.gl/core/typed';
 import { getItemById } from '$lib/utils/array';
 import { getCustomPolygonChromaFillColor, vegetationFineBrewer } from '$lib/utils/colors';
+
+import cadastre from '$lib/assets/geojson/core/grabels_cadastre_parcelles_4326.json';
+import vegetation from '$lib/assets/geojson/core/vegetation_fine_grabels.json';
+
+console.log('Loading foresMapStore');
+console.log('cadastre', cadastre);
+turf.meta.featureEach(cadastre as FeatureCollection, function (currentFeature, featureIndex) {
+	console.log(featureIndex, currentFeature);
+});
 
 export type LegendItem = {
 	id: number;
@@ -24,6 +35,35 @@ export type Source = {
 	layerType: 'MVTLayer' | 'GeoJsonLayer';
 	description: string;
 };
+
+/**
+ * Refact memo
+ * 
+ const layersDefaultConfig = [
+	[
+		'nodes',
+		{
+			id: 'nodes',
+			label: 'Noeuds du graphe',
+			layerType: 'MVTLayer',
+			description: 'Lorem ipsum'
+		}
+	],
+	[
+		'edges',
+		{
+			id: 'edges',
+			label: 'Liens du graphe',
+			layerType: 'MVTLayer',
+			description: 'Lorem ipsum'
+		}
+	]
+	///...
+] as Iterable<readonly [string, Source]>;
+const configMap = new Map<string, Source>(layersDefaultConfig);
+console.log(configMap.get('nodes'));
+ * 
+ */
 
 const INITIAL_SOURCES: Source[] = [
 	{
@@ -154,7 +194,7 @@ const INITIAL_LAYERS = [
 	}),
 	new GeoJsonLayer({
 		id: 'cadastre-geojson-layer',
-		data: '/grabels_cadastre_parcelles_4326.geojson',
+		data: cadastre as LayerData<Feature<Geometry, GeoJsonProperties>>,
 		visible: true,
 		pickable: true,
 		stroked: false,
@@ -169,7 +209,7 @@ const INITIAL_LAYERS = [
 	}),
 	new GeoJsonLayer({
 		id: 'vegetation-fine-geojson',
-		data: '/vegetation_fine_grabels.geojson',
+		data: vegetation as LayerData<Feature<Geometry, GeoJsonProperties>>,
 		pickable: true,
 		visible: true,
 		stroked: false,
