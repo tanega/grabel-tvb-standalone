@@ -8,6 +8,9 @@
 	import { layers, cloneLayers, legend } from '$stores/forestMapStore';
 	import Legend from '$lib/Map/LegendForest.svelte';
 	import Story from '$lib/Map/Story.svelte';
+	import { Button, Modal } from 'flowbite-svelte'
+
+  	let defaultModal = false;
 
 	let mapElement: HTMLDivElement;
 	let canvasElement: HTMLCanvasElement;
@@ -108,8 +111,9 @@
 </script>
 
 <MapStylePicker currentStyle={mapStyle} on:change={handleStyleChange} />
-<Story class="absolute top-24 left-6 z-10" />
+<Story class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10" />
 <Legend class="absolute top-52 left-6 z-10" />
+
 <!-- <div id="legend" class="legend">
 </div> -->
 <div class="deck-container">
