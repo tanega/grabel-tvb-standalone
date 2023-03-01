@@ -4,7 +4,6 @@ import type { LayerData } from '@deck.gl/core/typed';
 import { GeoJsonLayer } from '@deck.gl/layers/typed';
 import type { Feature, Geometry, GeoJsonProperties, FeatureCollection } from 'geojson';
 import * as turf from '@turf/turf';
-import { merge } from 'rambda';
 import { scaleLinear } from 'd3-scale';
 import chroma from 'chroma-js';
 import * as aq from 'arquero';
