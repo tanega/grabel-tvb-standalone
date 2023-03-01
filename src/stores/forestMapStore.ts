@@ -1,25 +1,36 @@
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
-import { MVTLayer } from '@deck.gl/geo-layers/typed';
 import type { LayerData } from '@deck.gl/core/typed';
 import { GeoJsonLayer } from '@deck.gl/layers/typed';
 import type { Feature, Geometry, GeoJsonProperties, FeatureCollection } from 'geojson';
 import * as turf from '@turf/turf';
 import { merge } from 'rambda';
-// import cadastreData from "./grabels_cadastre_parcelles_4326.geojson"
+import { scaleLinear } from 'd3-scale';
+import chroma from 'chroma-js';
+import * as aq from 'arquero';
 
-// import type { Layer } from '@deck.gl/core/typed';
 import { getItemById } from '$lib/utils/array';
 import { getCustomPolygonChromaFillColor, vegetationFineBrewer } from '$lib/utils/colors';
 
 import cadastre from '$lib/assets/geojson/core/grabels_cadastre_parcelles_4326.json';
 import vegetation from '$lib/assets/geojson/core/vegetation_fine_grabels.json';
+import landuse from '$lib/assets/geojson/core/landuse_studyarea.json';
 
-console.log('Loading foresMapStore');
-console.log('cadastre', cadastre);
-turf.meta.featureEach(cadastre as FeatureCollection, function (currentFeature, featureIndex) {
-	console.log(featureIndex, currentFeature);
+import nodes from '$lib/assets/geojson/forest/nodes.json';
+import edges from '$lib/assets/geojson/forest/edges.json';
+import paths from '$lib/assets/geojson/forest/paths.json';
+import patches from '$lib/assets/geojson/forest/patches.json';
+
+const cadastreProperties: GeoJsonProperties[] = [];
+turf.meta.featureEach(cadastre as FeatureCollection, function (currentFeature) {
+	cadastreProperties.push(currentFeature.properties);
 });
+
+console.log(cadastreProperties);
+const df = aq.fromJSON(cadastreProperties);
+console.log(df.numRows());
+
+const color = scaleLinear([0, 100], ['white', 'black']);
 
 export type LegendItem = {
 	id: number;
@@ -27,7 +38,7 @@ export type LegendItem = {
 	label: string;
 };
 
-export type CoreLayer = MVTLayer | GeoJsonLayer;
+export type CoreLayer = GeoJsonLayer;
 
 export type Source = {
 	id: string;
@@ -69,25 +80,25 @@ const INITIAL_SOURCES: Source[] = [
 	{
 		id: 'nodes',
 		label: 'Noeuds du graphe',
-		layerType: 'MVTLayer',
+		layerType: 'GeoJsonLayer',
 		description: 'Lorem ipsum'
 	},
 	{
 		id: 'edges',
 		label: 'Liens du graphe',
-		layerType: 'MVTLayer',
+		layerType: 'GeoJsonLayer',
 		description: 'Lorem ipsum'
 	},
 	{
 		id: 'paths',
 		label: 'Chemins moindre-coût',
-		layerType: 'MVTLayer',
+		layerType: 'GeoJsonLayer',
 		description: 'Lorem ipsum'
 	},
 	{
 		id: 'public_patches_sciurus',
 		label: 'Habitat (Sciurus vulgaris)',
-		layerType: 'MVTLayer',
+		layerType: 'GeoJsonLayer',
 		description: 'Lorem ipsum'
 	},
 	{
@@ -110,24 +121,14 @@ const INITIAL_SOURCES: Source[] = [
 	}
 ];
 
-const layerDefault = {
-	visible: true,
-	pickable: true,
-	stroked: true,
-	filled: true,
-	wireframe: true,
-	lineWidth: 3
-};
-
 const INITIAL_LAYERS = [
-	new MVTLayer({
+	new GeoJsonLayer({
 		id: 'edges',
 		stroked: false,
 		filled: true,
 		extruded: true,
 		visible: true,
-		data: 'http://localhost:3000/public.forest_initial_edges.json',
-		lineWidthScale: 20,
+		data: edges as any,
 		lineWidthMinPixels: 2,
 		getFillColor: [160, 160, 180, 200],
 		getLineColor: [80, 80, 80],
@@ -136,13 +137,13 @@ const INITIAL_LAYERS = [
 		// },
 		getLineWidth: 2
 	}),
-	new MVTLayer({
+	new GeoJsonLayer({
 		id: 'paths',
 		stroked: false,
 		filled: true,
 		visible: true,
 		extruded: true,
-		data: 'http://localhost:3000/public.forest_initial_paths.json',
+		data: paths as any,
 		lineWidthScale: 10,
 		lineWidthMinPixels: 2,
 		getLineColor: [140, 0, 0],
@@ -151,31 +152,30 @@ const INITIAL_LAYERS = [
 		// },
 		getLineWidth: 2
 	}),
-	new MVTLayer({
+	new GeoJsonLayer({
 		id: 'nodes',
 		pickable: true,
 		visible: true,
-		data: 'http://localhost:3000/public.forest_initial_nodes.json',
+		data: nodes as any,
 		getPointRadius: (data: any) => {
 			// console.log(data.properties);
 			// console.log(Math.log2(data.properties['_if_d16000_p0.05_beta1_graph_plan_cost_prune_500m']));
-			return 24;
+			return 56;
 			// return Math.pow(
 			// 	Math.log2(data.properties['_if_d16000_p0.05_beta1_graph_plan_cost_prune_500m']) / 10,
 			// 	4
 			// );
 		},
 		getColor: (data: any) => {
-			console.log(data);
 			return [178, 12, 45];
 		},
 		getElevation: 5
 	}),
-	new MVTLayer({
+	new GeoJsonLayer({
 		id: 'public_patches_sciurus',
 		visible: true,
 		pickable: true,
-		data: 'http://localhost:3000/public.public_patches_sciurus.json',
+		data: patches as any,
 		stroked: true,
 		filled: true,
 		wireframe: true,
@@ -197,13 +197,12 @@ const INITIAL_LAYERS = [
 		data: cadastre as LayerData<Feature<Geometry, GeoJsonProperties>>,
 		visible: true,
 		pickable: true,
-		stroked: false,
+		stroked: true,
 		filled: true,
-		pointType: 'circle',
-		lineWidthScale: 20,
-		lineWidthMinPixels: 2,
-		getFillColor: [160, 160, 180, 200],
-		getLineColor: [255, 255, 180, 200],
+		opacity: 0.5,
+		lineWidthMinPixels: 1,
+		getFillColor: () => chroma(color(25)).rgb(),
+		getLineColor: () => chroma(color(75)).rgb(),
 		getPointRadius: 100,
 		getLineWidth: 1
 	}),
@@ -224,40 +223,43 @@ const INITIAL_LAYERS = [
 		getPointRadius: 100,
 		getLineWidth: 1
 	}),
-	new MVTLayer(
-		merge(layerDefault, {
-			id: 'landcover_studyarea_4326',
-			data: 'http://localhost:3000/public.landcover_studyarea_4326.json',
-			getFillColor: (data: any) => {
-				// console.log(getCustomPolygonChromaFillColor(data.properties.c2019_niv2));
-				// return [56, 145, 22];
-				return getCustomPolygonChromaFillColor(data.properties.c2019_niv2);
-			},
-			getLineColor: [80, 80, 80],
-			elevation: -2,
-			lineWidth: 3,
-			/**
-			 * fix types; deck.gl docs is sparse and won't help...
-			 * read source code
-			 */
-			onViewportLoad: (tiles: any) => {
-				tiles.forEach((tile: any) => {
-					// data in world coordinates (WGS84)
-					const dataInWGS84 = tile.dataInWGS84;
-					if (dataInWGS84) {
-						dataInWGS84.map((feature: any) => {
-							const legendItem = {
-								id: feature.properties.c2019_niv2 as number,
-								rgbColors: getCustomPolygonChromaFillColor(feature.properties.c2019_niv2),
-								label: feature.properties.lib19_niv2 as string
-							};
-							addLegendItem('landcover_studyarea_4326', legendItem);
-						});
-					}
-				});
-			}
-		})
-	)
+	new GeoJsonLayer({
+		id: 'landcover_studyarea_4326',
+		data: landuse as LayerData<Feature<Geometry, GeoJsonProperties>>,
+		visible: true,
+		pickable: true,
+		stroked: true,
+		filled: true,
+		wireframe: true,
+		lineWidth: 3,
+		getFillColor: (data: any) => {
+			// console.log(getCustomPolygonChromaFillColor(data.properties.c2019_niv2));
+			// return [56, 145, 22];
+			return getCustomPolygonChromaFillColor(data.properties.c2019_niv2);
+		},
+		getLineColor: [80, 80, 80],
+		elevation: -2,
+		/**
+		 * fix types; deck.gl docs is sparse and won't help...
+		 * read source code
+		 */
+		onViewportLoad: (tiles: any) => {
+			tiles.forEach((tile: any) => {
+				// data in world coordinates (WGS84)
+				const dataInWGS84 = tile.dataInWGS84;
+				if (dataInWGS84) {
+					dataInWGS84.map((feature: any) => {
+						const legendItem = {
+							id: feature.properties.c2019_niv2 as number,
+							rgbColors: getCustomPolygonChromaFillColor(feature.properties.c2019_niv2),
+							label: feature.properties.lib19_niv2 as string
+						};
+						addLegendItem('landcover_studyarea_4326', legendItem);
+					});
+				}
+			});
+		}
+	})
 ];
 
 export const currentStyleStore = writable('Streets V10');
@@ -284,14 +286,20 @@ export const addLegendItem = (layerName: string, legendItem: LegendItem) => {
 	});
 };
 
+turf.meta.featureEach(landuse as FeatureCollection, function (currentFeature) {
+	const legendItem = {
+		id: currentFeature?.properties?.c2019_niv2 as number,
+		rgbColors: getCustomPolygonChromaFillColor(currentFeature?.properties?.c2019_niv2),
+		label: currentFeature?.properties?.lib19_niv2 as string
+	};
+	addLegendItem('landcover_studyarea_4326', legendItem);
+});
+
 export const setLayerVisibility = (layerId: string, visibility: boolean) => {
-	console.log(layerId, visibility);
 	layers.update((currentLayers) => {
 		return currentLayers.map((layer) => {
-			console.log(layer);
+			// console.log(layer);
 			if (layer.id == layerId) {
-				console.log(layer.id, layerId);
-				console.log(layer.id == layerId);
 				return layer.clone({ visible: visibility });
 			}
 			return layer;
@@ -302,10 +310,7 @@ export const setLayerVisibility = (layerId: string, visibility: boolean) => {
 export const setLayerOpacity = (layerId: string, opacity: number) => {
 	layers.update((currentLayers) => {
 		return currentLayers.map((layer) => {
-			console.log(layer);
 			if (layer.id === layerId) {
-				console.log(layer.id, layerId);
-				console.log(layer.id == layerId);
 				return layer.clone({ opacity: opacity });
 			}
 			return layer;
