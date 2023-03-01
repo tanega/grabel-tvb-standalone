@@ -1,0 +1,9 @@
+<script>
+    import Alert from '$lib/Display/Alert.svelte'
+</script>
+
+# Here’s a chart
+
+<Alert message="Composant Svelte dans un fichier Markdown!" />
+
+The chart is rendered inside our MDsveX document.
