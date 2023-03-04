@@ -20,6 +20,7 @@
             initial={{ borderRadius: 10 }}
             let:motion={m1}
           >
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
             <li
               on:click={() => {
                 items = items.map((v, j) => (j === i ? !v : v))
