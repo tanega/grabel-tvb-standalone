@@ -14,7 +14,7 @@
   import Legend from '$lib/Map/LegendForest.svelte'
   import Story from '$lib/Map/Story.svelte'
   import { Button, Modal } from 'flowbite-svelte'
-  import Content from '$lib/Content/hello-world.svelte.md'
+  import Content from '$lib/Content/analyse-diachronique-article.svelte'
 
   let defaultModal = false
 

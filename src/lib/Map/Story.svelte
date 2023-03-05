@@ -91,7 +91,7 @@
                 <article
                   id="content"
                   use:motion4
-                  class="prose h-full"
+                  class="max-w-none h-full"
                 >
                   <slot name="content" />
                 </article>
