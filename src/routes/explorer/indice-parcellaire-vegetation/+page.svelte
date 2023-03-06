@@ -5,11 +5,7 @@
   import { Deck } from '@deck.gl/core/typed'
   import type { Deck as DeckType } from '@deck.gl/core/typed'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
-  import {
-    layers,
-    cloneLayers,
-    legend,
-  } from '$stores/cadastreMetrics'
+  import { layers, cloneLayers } from '$stores/cadastreMetrics'
   import Legend from '$lib/Map/LegendCadastre.svelte'
   import Story from '$lib/Map/Story.svelte'
   import { Button, Modal } from 'flowbite-svelte'
@@ -96,7 +92,7 @@
             object.properties
           )}</div>`,
           style: {
-            backgroundColor: '#f00',
+            backgroundColor: '#8e95a0',
             fontSize: '0.8em',
           },
         },
@@ -129,7 +125,6 @@
 
   $: deck && renderLayers()
   $: $layers && renderLayers()
-  // $: console.log($legend);
 </script>
 
 <MapStylePicker
@@ -148,8 +143,6 @@
 </Story>
 <Legend class="absolute top-52 left-6 z-10" />
 
-<!-- <div id="legend" class="legend">
-</div> -->
 <div class="deck-container">
   <div id="map" bind:this={mapElement} />
   <canvas id="deck-canvas" bind:this={canvasElement} />

@@ -1,13 +1,10 @@
 <script lang="ts">
   import {
-    legend,
-    type LegendItem,
     sources,
     setLayerVisibility,
     layers,
     setLayerOpacity,
   } from '$stores/cadastreMetrics'
-  import chroma from 'chroma-js'
   import {
     Disclosure,
     DisclosureButton,
@@ -19,26 +16,14 @@
   } from '@rgossiaux/svelte-heroicons/outline'
   import Checkbox from '$lib/Core/Checkbox.svelte'
   import Slider from '$lib/Core/Slider.svelte'
-  import { sort, ascend, prop } from 'ramda'
   import { getItemById } from '$lib/utils/array'
+  import { Legend, Swatches } from '$lib/Legend'
 
   /**
    * To collapse all layers legend disclosure programmatically
    * via event forwarding or external control with svelte/stores
    */
   let isAllLegendDetailsCollapsed = false
-
-  const byId = ascend(prop('id'))
-  const sortLegendItemsById = (
-    layerName: string,
-    legend: Record<string, LegendItem[]>
-  ): LegendItem[] => {
-    if (legend[layerName]) {
-      return sort(byId, legend[layerName])
-    } else {
-      return []
-    }
-  }
 
   const toggleLayerVisibility = (e: CustomEvent, layerId: string) => {
     setLayerVisibility(layerId, e.detail.checked as boolean)
@@ -82,33 +67,19 @@
         {#if open && !isAllLegendDetailsCollapsed}
           <div>
             <DisclosurePanel static>
-              <ul class="space-y-2 ml-6 last:mb-4">
-                {#each sortLegendItemsById(source.id, $legend) as item}
-                  <li>
-                    <div
-                      class="flex flex-row justify-start items-center"
-                    >
-                      <svg
-                        viewBox="0 0 9 9"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 flex-none"
-                      >
-                        <!-- Simple rect element -->
-                        <rect
-                          x="0"
-                          y="0"
-                          width="12"
-                          height="12"
-                          fill={chroma(item.rgbColors).hex()}
-                        />
-                      </svg>
-                      <div class="flex-1 ml-2 text-sm text-slate-600">
-                        {item.label}
-                      </div>
-                    </div>
-                  </li>
-                {/each}
-              </ul>
+              {#if source.legendConfig.component === 'Legend'}
+                <Legend
+                  color={source.legendConfig.color}
+                  options={source.legendConfig.options}
+                />
+              {:else if source.legendConfig.component === 'Swatches'}
+                <Swatches
+                  color={source.legendConfig.color}
+                  options={source.legendConfig.options}
+                />
+              {:else}
+                <div>Hello world</div>
+              {/if}
             </DisclosurePanel>
           </div>
         {/if}

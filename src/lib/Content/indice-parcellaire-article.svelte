@@ -13,10 +13,44 @@
     TableHead,
     TableHeadCell,
   } from 'flowbite-svelte'
-  import { Alert, H1, H2, Container } from '$lib/Display'
+  import { H1, H2, Container } from '$lib/Display'
+  import { Legend, Swatches } from '$lib/Legend'
+  import { scaleSequential, scaleOrdinal } from 'd3-scale'
+  import {
+    interpolateViridis,
+    schemeTableau10,
+  } from 'd3-scale-chromatic'
+  import {
+    areaColorLinearScale,
+    areaColorScaleRefact,
+  } from '$lib/utils/colors'
 </script>
 
 <Container>
+  <Legend
+    color={areaColorScaleRefact([0, 456221])}
+    options={{
+      title: 'Temperature (°F)',
+    }}
+  />
+  <Swatches
+    color={scaleOrdinal(
+      [
+        'Wholesale and Retail Trade',
+        'Manufacturing',
+        'Leisure and hospitality',
+        'Business services',
+        'Construction',
+        'Education and Health',
+        'Government',
+        'Finance',
+        'Self-employed',
+        'Other',
+      ],
+      schemeTableau10
+    )}
+    options={{ columns: '180px' }}
+  />
   <Img
     src="https://image.over-blog.com/XqOdauvV_njJTZhahcSwR_bfrpE=/filters:no_upscale()/image%2F0186682%2F20230205%2Fob_ba099e_10.jpg"
     alt="sample 1"
