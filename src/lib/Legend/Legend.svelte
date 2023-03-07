@@ -175,7 +175,8 @@
 
       tickAdjust = () => {}
     }
-
+    console.log('ticks :>> ', ticks)
+    console.log('tickValues :>> ', tickValues)
     svg
       .append('g')
       .attr('transform', `translate(0,${height - marginBottom})`)

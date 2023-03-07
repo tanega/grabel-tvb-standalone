@@ -1,6 +1,18 @@
 import chroma from 'chroma-js'
-import { scaleOrdinal, scalePow, scaleSequential } from 'd3-scale'
-import { interpolateViridis, schemeYlGn } from 'd3-scale-chromatic'
+import {
+  scaleOrdinal,
+  scalePow,
+  scaleQuantize,
+  scaleSequential,
+  scaleSequentialQuantile,
+  scaleSequentialSqrt,
+} from 'd3-scale'
+import {
+  interpolatePuRd,
+  interpolateViridis,
+  schemePurples,
+  schemeYlGn,
+} from 'd3-scale-chromatic'
 
 export const chromaScale = chroma
   .scale(['yellow', '008ae5', 'beige', 'orange', 'purple'])
@@ -49,6 +61,13 @@ export const areaColorScaleRefact = (domain: number[]) =>
 export const areaColorLinearScale = (domain: number[]) =>
   scaleSequential(domain, interpolateViridis)
 
+export const colorQuantize = (
+  domain: number[],
+  interpolator = schemePurples[5]
+) =>
+  // scaleSequentialQuantile(domain, interpolateViridis)
+  scaleQuantize(domain, interpolator)
+
 export const ordinalColorScale = (
   domain: string[],
   rangeInterpolator: readonly string[]
@@ -65,7 +84,36 @@ export const vegFineOrdinalColorScale = ordinalColorScale(
     "Canopée d'arbres alignés",
     'Bois',
   ],
-  schemeYlGn[8]
+  chroma.scale(['#fafa6e', '#2A4858']).mode('lch').colors(8)
+)
+
+export const landuseOrdinalColorScale = ordinalColorScale(
+  [
+    'Espaces verts (parcs, jardins)',
+    "Zones bâties à prédominance d'habitat",
+    'Infrastructures routières et ferroviaires',
+    'Grands équipements urbains',
+    "Zones d'activité économique",
+    'Conifères dominants',
+    'Equipements sportifs et de loisirs',
+    'Terres arables non inondées et espaces prairiaux agricoles',
+    'Landes et fourrés',
+    'Cultures permanentes',
+    'Extraction de matériaux, décharges, chantiers',
+    'Feuillus dominants',
+    'Végétations sclérophylles',
+    'Espaces boisés en mutation',
+    'Boisements linéaires',
+    'Eaux continentales ou littorales',
+    'Peuplements indéterminés',
+    'Pelouses et steppes',
+    "Cours et voies d'eau",
+  ],
+  [
+    ...chroma.scale(['#6b6b6b', '#151f23']).mode('lch').colors(3),
+    '#1842db',
+    ...chroma.scale(['#f2d91f', '#bc291c']).mode('lch').colors(15),
+  ]
 )
 
 export const formatForDeck = (

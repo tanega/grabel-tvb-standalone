@@ -5,20 +5,23 @@
   import { Deck } from '@deck.gl/core/typed'
   import type { Deck as DeckType } from '@deck.gl/core/typed'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
-  import { layers, cloneLayers, legend } from '$stores/forestMapStore'
-  import Legend from '$lib/Map/LegendForest.svelte'
+  import {
+    layers,
+    cloneLayers,
+    sources,
+    setLayerOpacity,
+    setLayerVisibility,
+  } from '$stores/forestMapStore'
+  import Legend from '$lib/Map/LegendContainer.svelte'
   import Story from '$lib/Map/Story.svelte'
-  import { Button, Modal } from 'flowbite-svelte'
   import Content from '$lib/Content/trame-forestiere-article.svelte'
-
-  let defaultModal = false
 
   let mapElement: HTMLDivElement
   let canvasElement: HTMLCanvasElement
   let map: Map | null = null
   let deck: DeckType | null = null
   let accessToken = import.meta.env.VITE_MAPBOX_API_ACCESS_TOKEN
-  let mapStyle = 'mapbox://styles/mapbox/light-v9'
+  let mapStyle = 'mapbox://styles/mapbox/dark-v9'
   let viewState = {
     latitude: 43.64719562181893,
     longitude: 3.7781012994069005,
@@ -91,6 +94,18 @@
       onClick: (info, event) => {
         console.log(info)
       },
+      getTooltip: ({ object, layer }) =>
+        object &&
+        layer && {
+          html: `<h2>${layer.id}</h2><div>${JSON.stringify(
+            object.properties
+          )}</div>`,
+          style: {
+            backgroundColor: '#8e95a0',
+            fontSize: '0.8em',
+            maxWidth: '500px',
+          },
+        },
     })
   }
 
@@ -124,7 +139,13 @@
     <Content />
   </svelte:fragment>
 </Story>
-<Legend class="absolute top-52 left-6 z-10" />
+<Legend
+  class="absolute top-52 left-6 z-10"
+  layers={$layers}
+  sources={$sources}
+  {setLayerOpacity}
+  {setLayerVisibility}
+/>
 
 <!-- <div id="legend" class="legend">
 </div> -->

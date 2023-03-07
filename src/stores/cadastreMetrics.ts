@@ -1,47 +1,48 @@
 import { writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 import type { GeoJsonLayer as GeoJsonLayerType } from '@deck.gl/layers/typed'
+import type { GeoJsonLayerProps } from '@deck.gl/layers/typed'
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import type { Feature, Geometry, GeoJsonProperties } from 'geojson'
-import { scaleLinear } from 'd3-scale'
 import chroma from 'chroma-js'
-
 import {
   vegFineOrdinalColorScale,
   areaColorLinearScale,
   formatForDeck,
 } from '$lib/utils/colors'
+import type { CoreLayer, Source } from '$lib/types'
 import * as _ from 'lodash'
-
-const color = scaleLinear([0, 100], ['white', 'black'])
-
-export type LegendItem = {
-  id: number
-  rgbColors: number[]
-  label: string
-}
-
-export type CoreLayer = GeoJsonLayer
-
-export type Source = {
-  id: string
-  label: string
-  layerType: 'MVTLayer' | 'GeoJsonLayer'
-  description: string
-  layerConfig: any //WIP
-  legendConfig: any //WIP
-}
 
 /**
  * Support DeckGL layer setup with config
  */
 const INITIAL_SOURCES: Source[] = [
   {
+    id: 'cadastre-outline-layer',
+    label: 'Limites parcellaire',
+    layerType: 'GeoJsonLayer',
+    description: 'Lorem ipsum',
+    layerProps: {
+      id: 'cadastre-outline-layer',
+      data: '/geojson/core/grabels_cadastre_parcelles_4326.json',
+      visible: true,
+      pickable: true,
+      stroked: true,
+      filled: true,
+      opacity: 0.5,
+      lineWidthMinPixels: 1,
+      getFillColor: [0, 0, 0, 0],
+      getLineColor: () => chroma('#9c755f').rgb(),
+      getPointRadius: 100,
+      getLineWidth: 1,
+    },
+  },
+  {
     id: 'cadastre-geojson-layer',
     label: 'Cadastre (parcelles)',
     layerType: 'GeoJsonLayer',
     description: 'Lorem ipsum',
-    layerConfig: {
+    layerProps: {
       id: 'cadastre-geojson-layer',
       data: '/geojson/core/grabels_cadastre_parcelles_4326.json',
       visible: true,
@@ -57,7 +58,7 @@ const INITIAL_SOURCES: Source[] = [
           )
         )
       },
-      getLineColor: () => chroma(color(1)).rgb(),
+      getLineColor: () => chroma('white').rgb(),
       getPointRadius: 100,
       getLineWidth: 1,
     },
@@ -75,7 +76,7 @@ const INITIAL_SOURCES: Source[] = [
     label: 'Végétation fine (Grabels)',
     layerType: 'GeoJsonLayer',
     description: 'Lorem ipsum',
-    layerConfig: {
+    layerProps: {
       id: 'vegetation-fine-geojson',
       data: '/geojson/core/vegetation_fine_grabels.json',
       pickable: true,
@@ -108,11 +109,11 @@ const INITIAL_SOURCES: Source[] = [
 const initLayer = (
   layerSources: Source[]
 ): GeoJsonLayerType[] | any => {
-  return layerSources.map(({ layerType, id, layerConfig }) => {
+  return layerSources.map(({ layerType, id, layerProps }) => {
     switch (layerType) {
       case 'GeoJsonLayer':
         return new GeoJsonLayer({
-          ...layerConfig,
+          ...layerProps,
           id: id,
         })
     }

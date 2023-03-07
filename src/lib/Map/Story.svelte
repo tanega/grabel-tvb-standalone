@@ -2,11 +2,6 @@
   import Motion from 'svelte-motion/src/motion/MotionSSR.svelte'
   import AnimatePresence from 'svelte-motion/src/components/AnimatePresence/AnimatePresence.svelte'
 
-  import type {
-    Motion as MotionType,
-    AnimatePresence as AnimatePresenceType,
-  } from 'svelte-motion'
-
   export let imgUrl =
     'https://images.unsplash.com/photo-1448375240586-882707db888b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80'
   export let title = 'Trame forestière'
@@ -35,7 +30,7 @@
     transition={{ duration: 0.5 }}
   >
     <div
-      class="-m-3 rounded-lg p-3 transition duration-150 ease-in-out hover:shadow-lg bg-white overflow-hidden"
+      class="rounded-lg p-2 transition duration-150 ease-in-out hover:shadow-lg bg-white overflow-hidden"
       on:click={() => (isOpen = !isOpen)}
       on:keydown={handleEscape}
       on:keyup={handleEscape}

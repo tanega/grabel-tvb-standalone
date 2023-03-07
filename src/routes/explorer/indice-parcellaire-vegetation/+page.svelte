@@ -5,13 +5,16 @@
   import { Deck } from '@deck.gl/core/typed'
   import type { Deck as DeckType } from '@deck.gl/core/typed'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
-  import { layers, cloneLayers } from '$stores/cadastreMetrics'
-  import Legend from '$lib/Map/LegendCadastre.svelte'
+  import {
+    layers,
+    cloneLayers,
+    sources,
+    setLayerOpacity,
+    setLayerVisibility,
+  } from '$stores/cadastreMetrics'
+  import Legend from '$lib/Map/LegendContainer.svelte'
   import Story from '$lib/Map/Story.svelte'
-  import { Button, Modal } from 'flowbite-svelte'
   import Content from '$lib/Content/indice-parcellaire-article.svelte'
-
-  let defaultModal = false
 
   let mapElement: HTMLDivElement
   let canvasElement: HTMLCanvasElement
@@ -141,7 +144,13 @@
     <Content />
   </svelte:fragment>
 </Story>
-<Legend class="absolute top-52 left-6 z-10" />
+<Legend
+  class="absolute top-52 left-6 z-10"
+  layers={$layers}
+  sources={$sources}
+  {setLayerOpacity}
+  {setLayerVisibility}
+/>
 
 <div class="deck-container">
   <div id="map" bind:this={mapElement} />

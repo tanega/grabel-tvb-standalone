@@ -7,6 +7,8 @@ import type {
   GeometryCollection,
 } from 'geojson'
 import type { Properties } from '@turf/turf'
+import type { Source } from '$lib/types'
+import { GeoJsonLayer } from '@deck.gl/layers/typed'
 
 export const getMinMaxFromFeatureAttribute = (
   features: turf.helpers.GeometryCollection,
@@ -31,6 +33,35 @@ export const getMinMaxFromFeatureAttribute = (
       return previousValue
     },
     []
+  )
+}
+
+export const getUniqValuesFromProps = (
+  features: turf.helpers.GeometryCollection,
+  key: string
+): any[] => {
+  return turf.propReduce(
+    features,
+    function (previousValues: any, currentProperties) {
+      console.log('previousValues :>> ', previousValues)
+      console.log('currentProperties :>> ', currentProperties)
+      console.log('object :>> ', _.get(currentProperties, key))
+      if (!previousValues.includes(_.get(currentProperties, key))) {
+        previousValues.push(_.get(currentProperties, key))
+      }
+      return previousValues
+    },
+    []
+  )
+}
+
+export const initLayer = (layerSources: Source[]): GeoJsonLayer[] => {
+  return layerSources.map(
+    ({ id, layerProps }) =>
+      new GeoJsonLayer({
+        ...layerProps,
+        id: id,
+      })
   )
 }
 
