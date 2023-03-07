@@ -36,7 +36,6 @@ const INITIAL_SOURCES: Source[] = [
       },
       getPointRadius: d =>
         circleRadius([0, 3.79e7], d.properties?.Capacity),
-      getElevation: 600,
     },
     legendConfig: {
       component: 'Legend',
@@ -90,6 +89,28 @@ const INITIAL_SOURCES: Source[] = [
       getLineWidth: 1,
     },
   },
+  {
+    id: 'forest_subgrahs',
+    label: 'Composantes du graphe paysager',
+    layerType: 'GeoJsonLayer',
+    description: 'Lorem ipsum',
+    layerProps: {
+      id: 'forest_subgrahs',
+      visible: true,
+      pickable: true,
+      stroked: true,
+      filled: true,
+      opacity: 0.5,
+      data: '/geojson/forest/subgraphs.json',
+      lineWidthMinPixels: 1,
+      getLineColor: () => chroma('aquamarine').rgb(),
+      getFillColor: [0, 0, 0, 0],
+      // getElevation: (d: any) => {
+      // 	return d.properties.surface_m2 / 10;
+      // },
+      getLineWidth: 1,
+    },
+  },
 
   {
     id: 'forest_patches',
@@ -103,10 +124,10 @@ const INITIAL_SOURCES: Source[] = [
       filled: true,
       extruded: true,
       visible: false,
-      data: '/geojson/forest/patches.json',
+      data: '/geojson/forest/patches_simple.geojson',
       lineWidthScale: 20,
       lineWidthMinPixels: 2,
-      getFillColor: [23, 119, 100, 200],
+      getFillColor: [23, 119, 100],
       getLineColor: [160, 160, 180, 200],
       getPointRadius: 100,
       getLineWidth: 1,

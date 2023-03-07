@@ -43,9 +43,6 @@ export const getUniqValuesFromProps = (
   return turf.propReduce(
     features,
     function (previousValues: any, currentProperties) {
-      console.log('previousValues :>> ', previousValues)
-      console.log('currentProperties :>> ', currentProperties)
-      console.log('object :>> ', _.get(currentProperties, key))
       if (!previousValues.includes(_.get(currentProperties, key))) {
         previousValues.push(_.get(currentProperties, key))
       }
@@ -67,14 +64,13 @@ export const initLayer = (layerSources: Source[]): GeoJsonLayer[] => {
 
 /**
  * Mémo
- * 
-let areaMinMax: number[] = []
+ **/
 
-fetch('/geojson/core/grabels_cadastre_parcelles_4326.json')
-  .then(res => res.json())
-  .then(data => {
-    areaMinMax = getMinMaxFromFeatureAttribute(data, 'Shape_Area')
-  })
-console.log('areaMinMax :>> ', areaMinMax)
+// let range: number[] = []
 
-*/
+// fetch('/geojson/scrubland/patches.geojson')
+//   .then(res => res.json())
+//   .then(data => {
+//     range = getMinMaxFromFeatureAttribute(data, 'Capacity')
+//     console.log('range :>> ', range)
+//   })

@@ -9,6 +9,7 @@
     ChevronDownIcon,
     ChevronUpIcon,
   } from '@rgossiaux/svelte-heroicons/outline'
+  import { Popover } from 'flowbite-svelte'
   import Checkbox from '$lib/Core/Checkbox.svelte'
   import Slider from '$lib/Core/Slider.svelte'
   import { Legend, Swatches } from '$lib/Legend'
@@ -58,7 +59,17 @@
               )}
               on:click={e => toggleLayerVisibility(e, source.id)}
             />
-            <div class="flex-1">{source.label}</div>
+            <div class="flex-1" id={source.id}>{source.label}</div>
+            {#if source.description}
+              <Popover
+                class="w-64 text-sm font-light "
+                title="Détails"
+                placement="right"
+                triggeredBy={`#${source.id}`}
+              >
+                {source.description}
+              </Popover>
+            {/if}
             <Slider
               class="flex-none"
               value={_.get(

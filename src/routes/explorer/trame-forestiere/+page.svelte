@@ -140,7 +140,7 @@
   </svelte:fragment>
 </Story>
 <Legend
-  class="absolute top-52 left-6 z-10"
+  class="absolute top-24 left-6 z-10"
   layers={$layers}
   sources={$sources}
   {setLayerOpacity}

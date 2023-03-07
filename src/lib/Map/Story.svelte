@@ -24,7 +24,7 @@
   <Motion
     let:motion
     animate={{
-      height: isOpen ? '80vh' : '15vh',
+      height: isOpen ? '87vh' : '15vh',
       width: isOpen ? '95vw' : '100%',
     }}
     transition={{ duration: 0.5 }}
