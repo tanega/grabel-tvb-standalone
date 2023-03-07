@@ -6,10 +6,7 @@ import {
   landuseOrdinalColorScale,
   colorQuantize,
 } from '$lib/utils/colors'
-import {
-  getMinMaxFromFeatureAttribute,
-  initLayer,
-} from '$lib/utils/geo'
+import { initLayer } from '$lib/utils/geo'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { circleRadius, elevationScale } from '$lib/utils/scale'
 import chroma from 'chroma-js'

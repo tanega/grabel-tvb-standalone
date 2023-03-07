@@ -27,7 +27,7 @@
       class="text-gray-500 group flex-none inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       on:click={e => goto('/')}
     >
-      Méthodologie
+      Accueil
     </button>
     <Popover
       class="flex flex-none max-w-7xl px-4 py-6 sm:px-6 lg:px-8"

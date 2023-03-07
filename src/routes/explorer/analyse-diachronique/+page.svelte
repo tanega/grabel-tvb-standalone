@@ -10,13 +10,20 @@
   } from '@deck.gl/core/typed'
   import type { ViewStateChangeParameters } from '@deck.gl/core/src/controllers/controller'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
-  import { layers, cloneLayers, legend } from '$stores/forestMapStore'
-  import Legend from '$lib/Map/LegendForest.svelte'
+  import {
+    layers,
+    cloneLayers,
+    sources,
+    setLayerOpacity,
+    setLayerVisibility,
+  } from '$stores/forestMapStore'
+  import Legend from '$lib/Map/LegendContainer.svelte'
   import Story from '$lib/Map/Story.svelte'
   import { Button, Modal } from 'flowbite-svelte'
   import Content from '$lib/Content/analyse-diachronique-article.svelte'
 
   let defaultModal = false
+  let showLegend = false
 
   let mapboxBeforeElement: HTMLDivElement
   let mapboxAfterElement: HTMLDivElement
@@ -147,11 +154,11 @@
 
   function layerFilter({ layer, viewport }: FilterContext) {
     const shouldDrawInBeforeMap =
-      layer.id.startsWith('landcover_studyarea_4326') ||
-      layer.id.startsWith('patches')
+      layer.id.startsWith('forest_landcover') ||
+      layer.id.startsWith('forest_patches')
     const shouldDrawInAfterMap =
-      layer.id.startsWith('cadastre-geojson-layer') ||
-      layer.id.startsWith('paths')
+      layer.id.startsWith('forest_nodes') ||
+      layer.id.startsWith('forest_edges')
 
     if (viewport.id === 'before') return shouldDrawInBeforeMap
     if (viewport.id === 'after') return shouldDrawInAfterMap
@@ -226,14 +233,22 @@
 />
 <Story
   class="absolute bottom-6 left-6 z-30"
-  imgUrl="https://www.actu-direct.fr/rep/rep_article/20211014095507.jpg"
-  title="Analyse diachronique"
+  title="Trame forestière"
   lead="Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor idmus."
 >
   <svelte:fragment slot="content">
     <Content />
   </svelte:fragment>
 </Story>
+{#if !showLegend}
+  <Legend
+    class="absolute bottom-6 right-6 z-10"
+    layers={$layers}
+    sources={$sources}
+    {setLayerOpacity}
+    {setLayerVisibility}
+  />
+{/if}
 <!-- <Legend class="absolute top-52 left-6 z-10" /> -->
 
 <!-- <div id="legend" class="legend">
