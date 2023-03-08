@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import mapboxgl from 'mapbox-gl'
   import type { Map } from 'mapbox-gl'
-  import { Deck, MapView } from '@deck.gl/core/typed'
+  import { Deck, MapView } from 'deck.gl'
   import type {
     Deck as DeckType,
     MapView as MapViewType,

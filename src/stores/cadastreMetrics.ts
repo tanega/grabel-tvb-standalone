@@ -1,8 +1,6 @@
 import { writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 import type { GeoJsonLayer as GeoJsonLayerType } from '@deck.gl/layers/typed'
-import type { GeoJsonLayerProps } from '@deck.gl/layers/typed'
-import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import type { Feature, Geometry, GeoJsonProperties } from 'geojson'
 import chroma from 'chroma-js'
 import {
@@ -11,6 +9,7 @@ import {
   formatForDeck,
 } from '$lib/utils/colors'
 import type { CoreLayer, Source } from '$lib/types'
+import { initLayer } from '$lib/utils/geo'
 import * as _ from 'lodash'
 
 /**
@@ -54,7 +53,7 @@ const INITIAL_SOURCES: Source[] = [
       getFillColor: (feature: any) => {
         return formatForDeck(
           areaColorLinearScale([0, 500000])(
-            Math.round(_.get(feature, 'properties.Shape_Area'))
+            Math.round(feature?.properties?.Shape_Area)
           )
         )
       },
@@ -105,20 +104,6 @@ const INITIAL_SOURCES: Source[] = [
     },
   },
 ]
-
-const initLayer = (
-  layerSources: Source[]
-): GeoJsonLayerType[] | any => {
-  return layerSources.map(({ layerType, id, layerProps }) => {
-    switch (layerType) {
-      case 'GeoJsonLayer':
-        return new GeoJsonLayer({
-          ...layerProps,
-          id: id,
-        })
-    }
-  })
-}
 
 const INITIAL_LAYERS = initLayer(INITIAL_SOURCES)
 

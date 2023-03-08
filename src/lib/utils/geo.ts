@@ -8,7 +8,8 @@ import type {
 } from 'geojson'
 import type { Properties } from '@turf/turf'
 import type { Source } from '$lib/types'
-import { GeoJsonLayer } from '@deck.gl/layers/typed'
+import type { GeoJsonLayer as GeoJsonLayerType } from '@deck.gl/layers/typed'
+import { GeoJsonLayer } from 'deck.gl'
 
 export const getMinMaxFromFeatureAttribute = (
   features: turf.helpers.GeometryCollection,
@@ -52,7 +53,9 @@ export const getUniqValuesFromProps = (
   )
 }
 
-export const initLayer = (layerSources: Source[]): GeoJsonLayer[] => {
+export const initLayer = (
+  layerSources: Source[]
+): GeoJsonLayerType[] => {
   return layerSources.map(
     ({ id, layerProps }) =>
       new GeoJsonLayer({

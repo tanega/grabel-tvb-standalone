@@ -3,7 +3,7 @@
   import Footer from '$lib/Footer/Home.svelte'
 </script>
 
-<Menu slot="header" />
+<Menu />
 
 <div
   class="mx-auto w-full max-w-7xl pt-16 pb-20 text-center lg:py-48 lg:text-left"

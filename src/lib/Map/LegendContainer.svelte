@@ -53,10 +53,7 @@
           <div class="mb-3 flex">
             <Checkbox
               class="mr-2"
-              checked={_.get(
-                getLayerFromSource(source),
-                'props.visible'
-              )}
+              checked={getLayerFromSource(source)?.props?.visible}
               on:click={e => toggleLayerVisibility(e, source.id)}
             />
             <div class="flex-1" id={source.id}>{source.label}</div>
@@ -72,10 +69,7 @@
             {/if}
             <Slider
               class="flex-none"
-              value={_.get(
-                getLayerFromSource(source),
-                'props.opacity'
-              )}
+              value={getLayerFromSource(source)?.props?.opacity}
               on:change={e => handleLayerOpacity(e, source.id)}
             />
             {#if source.legendConfig}

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import mapboxgl from 'mapbox-gl'
   import type { Map } from 'mapbox-gl'
-  import { Deck } from '@deck.gl/core/typed'
+  import { Deck } from 'deck.gl'
   import type { Deck as DeckType } from '@deck.gl/core/typed'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
   import {

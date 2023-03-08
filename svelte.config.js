@@ -24,10 +24,6 @@ const config = {
       $stores: resolve('./src/stores'),
     },
     adapter: adapter(),
-    ssr: false,
-    prerender: {
-      enabled: false,
-    },
   },
 }
 

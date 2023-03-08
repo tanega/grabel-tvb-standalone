@@ -2,7 +2,6 @@
   import { onMount } from 'svelte'
   import mapboxgl from 'mapbox-gl'
   import type { Map } from 'mapbox-gl'
-  import { Deck } from '@deck.gl/core'
   import type { Deck as DeckType } from '@deck.gl/core/typed'
   import MapStylePicker from '$lib/Map/MapStylePicker.svelte'
   import {
@@ -15,6 +14,7 @@
   import Legend from '$lib/Map/LegendContainer.svelte'
   import Story from '$lib/Map/Story.svelte'
   import Content from '$lib/Content/trame-forestiere-article.svelte'
+  import { Deck } from 'deck.gl'
 
   let mapElement: HTMLDivElement
   let canvasElement: HTMLCanvasElement
