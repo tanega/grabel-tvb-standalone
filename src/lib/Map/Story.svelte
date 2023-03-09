@@ -1,6 +1,7 @@
 <script lang="ts">
-  import Motion from 'svelte-motion/src/motion/MotionSSR.svelte'
-  import AnimatePresence from 'svelte-motion/src/components/AnimatePresence/AnimatePresence.svelte'
+  // import Motion from 'svelte-motion/src/motion/MotionSSR.svelte'
+  // import AnimatePresence from 'svelte-motion/src/components/AnimatePresence/AnimatePresence.svelte'
+  import { Motion, AnimatePresence } from 'svelte-motion'
 
   export let imgUrl =
     'https://images.unsplash.com/photo-1448375240586-882707db888b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80'

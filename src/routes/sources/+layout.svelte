@@ -1,5 +1,5 @@
 <script>
-  import { Container } from '$lib/Display'
+  import Container from '$lib/Display/Container.svelte'
 </script>
 
 <Container>

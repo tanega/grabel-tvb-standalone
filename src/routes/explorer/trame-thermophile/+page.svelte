@@ -116,8 +116,9 @@
 />
 <Story
   class="absolute bottom-6 left-6 z-30"
-  title="Trame forestière"
+  title=" Milieux ouverts thermophiles"
   lead="Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor idmus."
+  imgUrl="https://www.randogps.net/traces/34/654/image2.GIF"
 >
   <svelte:fragment slot="content">
     <Content />

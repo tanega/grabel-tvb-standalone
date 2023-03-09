@@ -4,7 +4,7 @@
   export let pubDate = '15 mars 2023'
 </script>
 
-<Alert color="blue">
+<Alert color="blue" class="m-8">
   <span slot="icon"
     ><svg
       aria-hidden="true"
