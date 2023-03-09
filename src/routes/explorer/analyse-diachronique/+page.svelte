@@ -195,7 +195,7 @@
           pitch: viewState.pitch,
         })
       },
-      onClick: (info, event) => {
+      onClick: (info: any, event: Event) => {
         console.log(info)
       },
     })

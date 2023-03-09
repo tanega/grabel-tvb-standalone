@@ -91,10 +91,10 @@
           pitch: viewState.pitch,
         })
       },
-      onClick: (info, event) => {
+      onClick: (info: any, event: Event) => {
         console.log(info)
       },
-      getTooltip: ({ object, layer }) =>
+      getTooltip: ({ object, layer }: any) =>
         object &&
         layer && {
           html: `<h2>${layer.id}</h2><div>${JSON.stringify(

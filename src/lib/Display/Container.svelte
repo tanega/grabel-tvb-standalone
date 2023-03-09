@@ -1,4 +1,4 @@
-<div class="w-full flex items-center justify-center mb-96">
+<div class="w-full flex items-center justify-center mb-96 mt-12">
   <div class="max-w-xl">
     <slot />
   </div>

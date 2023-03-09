@@ -222,8 +222,19 @@
         </div>
       {/if}
     </Popover>
+
+    <div class="pr-6">
+      <button
+        type="button"
+        on:click={e => goto('/methodologie')}
+        class="text-gray-500 group flex-none inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        Méthodologie
+      </button>
+    </div>
     <button
       type="button"
+      on:click={e => goto('/sources')}
       class="text-gray-500 group flex-none inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
       Sources
