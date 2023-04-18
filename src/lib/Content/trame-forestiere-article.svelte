@@ -13,7 +13,7 @@
     TableHead,
     TableHeadCell,
   } from 'flowbite-svelte'
-  import { Alert, H1, H2, Container } from '$lib/Display'
+  import { Alert, H1, H2, Container, Pop, B } from '$lib/Display'
   import Draft from '$lib/Alerts/Draft.svelte'
 </script>
 
@@ -25,15 +25,15 @@
   <H2 text="1. Modèle biologique" />
 
   <P opacity={75}>
-    Le modèle biologique retenu pour la modélisation de ce graphe
-    paysager est l'
-    <A href="/" id="popover-image"
+    Afin de modéliser la trame forestière au sein de notre prototype,
+    nous avons retenu l'
+    <A href="/" id="scirurus-vulgaaris"
       >écureuil roux (<Span gradient>Sciurus vulgaris</Span>)</A
-    >.
+    > comme modèle biologique.
   </P>
 
   <Popover
-    triggeredBy="#popover-image"
+    triggeredBy="#scirurus-vulgaaris"
     class="w-[556px] text-sm font-light"
     defaultClass=""
     placement="bottom"
@@ -55,6 +55,8 @@
           </p>
           <a
             href="https://fr.wikipedia.org/wiki/%C3%89cureuil_roux"
+            target="_blank"
+            rel="noreferrer"
             class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700"
             >En savoir plus <svg
               class="ml-1 w-4 h-4"
@@ -79,14 +81,80 @@
     </div>
   </Popover>
 
-  <Draft />
+  <P
+    >Cette espèce arboricole de la famille des Sciuridae présente sur
+    l’ensemble du territoire de la France métropolitaine est modèle
+    biologique général qui a pu être utilisé pour modéliser des
+    graphes paysagers orientés sur la description des continuités
+    écologiques forestières
+    <Pop
+      id="Avon-2016"
+      authors="Avon and Bergès"
+      year="2016"
+      title="Prioritization of habitat patches for landscape
+    connectivity conservation differs between least-cost and
+    resistance distances."
+      editor=" Landscape Ecol 31, 1551–1565."
+      doi="https://doi.org/10.1007/s10980-015-0336-8"
+      >(Avon et Bergès, 2016)
+    </Pop>
+  </P>.
+  <P
+    >Cette espèce semble de plus démontrer une
+    <Pop
+      id="Tannier-2016"
+      authors="Tannier, C., Bourgeois, M., Houot, H., Foltête, J.-C."
+      year="2016"
+      title="Impact of urban developments on the functional connectivity
+    of forested habitats: a joint contribution of advanced urban
+    models and landscape graphs."
+      editor="Land Use Policy 52, 76-91."
+      doi="http://dx.doi.org/10.1016/j.landusepol.2015.12.002"
+      >certaine sensibilité au développement urbain
+    </Pop>
+    ce qui conforte son choix dans le contexte géographique de réalisation
+    de notre prototype.
+  </P>
+
+  <P
+    >Sur la base de recherche bibliographique, nous avons défini
+    l’habitat de l’écureuil roux comme un ensemble d’habitats
+    forestiers mixtes et/ou à prédominance de feuillus d’une surface
+    minimale de 0,5 ha (la bibliographie indique que
+    <Pop
+      id="Wauters-1995"
+      authors="Wauters, L. A., & André. A. Dhondt."
+      year="1995"
+      title="Lifetime Reproductive Success and Its Correlates in Female
+    Eurasian Red Squirrels."
+      editor="Oikos, 72(3), 402–410."
+      doi="https://doi.org/10.2307/3546126"
+      >la surface de l’habitat de l’écureuil roux
+    </Pop> oscille entre 0,5 et 10 ha). Par ailleurs, la bibliographie
+    indique que cette espèce aurait une dispersion journalière moyenne
+    de 200m et une capacité de migration maximale pour l’occupation d’un
+    nouvel habitat de 6 000m, avec une valeur médiane de 700m
+    <Pop
+      id="Bergès-2014"
+      authors="Bergès et Avon."
+      year="2014"
+      editor="Rapport en ligne"
+      title="Diagnostic de la connectivité potentielle
+    des trames forestières : cas d'étude en région méditerranéenne."
+      doi="https://www.trameverteetbleue.fr/sites/default/files/references_bibliographiques/rapport_diacofor_annee_2_berges_avon_1.pdf"
+      >(Bergès et Avon, 2014 )
+    </Pop>
+    . Pour notre modélisation nous avons retenu pour cette espèce une
+    <B>capacité de dispersion de 2000 m</B>pour atteindre de nouveaux
+    habitats.</P
+  >
 
   <div class="flex items-center justify-center w-full">
     <Img
       src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Red_Squirrel_-_Lazienki.JPG"
       alt="sample 1"
       caption="Image caption"
-      class="shadow-xl rounded-md"
+      class="shadow-xl rounded-md my-6"
       alignment="ml-auto"
     />
   </div>
