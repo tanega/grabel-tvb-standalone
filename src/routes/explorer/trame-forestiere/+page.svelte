@@ -133,7 +133,8 @@
 <Story
   class="absolute bottom-6 left-6 z-30"
   title="Trame forestière"
-  lead="Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor idmus."
+  imgUrl="https://image.over-blog.com/XqOdauvV_njJTZhahcSwR_bfrpE=/filters:no_upscale()/image%2F0186682%2F20230205%2Fob_ba099e_10.jpg"
+  description="Modélisation des continuités forestières utilisant l'écureuil roux comme modèle biologique."
 >
   <svelte:fragment slot="content">
     <Content />

@@ -1,7 +1,7 @@
 <script>
   import { goto } from '$app/navigation'
   import { Alert, Button, P, Span } from 'flowbite-svelte'
-  export let pubDate = '15 mars 2023'
+  export let pubDate = '20 avril 2023'
 </script>
 
 <Alert color="blue" class="m-8">
