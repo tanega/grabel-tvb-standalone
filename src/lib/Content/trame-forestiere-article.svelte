@@ -12,6 +12,8 @@
     TableBodyRow,
     TableHead,
     TableHeadCell,
+    List,
+    Li,
   } from 'flowbite-svelte'
   import { Alert, H1, H2, Container, Pop, B } from '$lib/Display'
   import Draft from '$lib/Alerts/Draft.svelte'
@@ -171,7 +173,116 @@
       caption="Paysage forestier sur la commune de Grabels"
     />
   </div>
-  <Draft />
+  <P weight="bold" size="lg" class="mb-8 mt-6"
+    >Définition de la zone d’emprise de l’étude</P
+  >
+
+  <P class="mb-6"
+    >Le territoire de la Ville de Grabels ayant été retenu comme zone
+    d’expérimentation de notre prototype, la zone d’étude de notre
+    analyse correspondra à l’emprise de la commune de Grabels augmenté
+    d’une zone tampon de 2 000 mètres.
+  </P>
+
+  <P class="mb-6"
+    >Dans le cadre de la réalisation d’un graphe paysager, il convient
+    de définir la zone d’analyse d’utiliser la zone géographique
+    regroupant la zone d’étude étendue à l’équivalent de la distance
+    maximale de dispersion du modèle biologique retenu pour l’étude, à
+    savoir 2 000 mètres pour la modélisation de l’écureuil roux.</P
+  >
+
+  <P class="mb-6"
+    >Nous avons donc appliqué cette zone tampon de 2 000 mètres autour
+    de la commune de Grabels. Pour des raisons de simplification, nous
+    avons ensuite transformé cette emprise géographique en boîte
+    englobante (zone géographique de forme rectangulaire) utilisant
+    les coordonnées minimales et maximales de la zone.</P
+  >
+
+  <P weight="bold" size="lg" class="mb-8 mt-6"
+    >Définition de l’occupation du sol</P
+  >
+
+  <P class="mb-6"
+    >Nous avons utilisé comme base de travail principale le <A
+      href="https://data.montpellier3m.fr/dataset/evolution-de-loccupation-du-sol-entre-2004-et-2012-de-montpellier-m%C3%A9diterran%C3%A9e-m%C3%A9tropole"
+      target="_blank"
+      rel="noreferrer">fichier d’évolution d’occupation du sol</A
+    > de Montpellier Méditerranée Métropole. Les données de ce fichier
+    renseignent l’occupation sur ce territoire et alentours pour la période
+    1994 – 2021.</P
+  >
+
+  <P class="mb-6"
+    >Pour les différentes années de cette période, différents types
+    d’occupation du sol ont été définis sur des entités spatiales
+    homogènes à partir de l’interprétation d’imagerie satellitaires ou
+    de photographies aériennes.</P
+  >
+
+  <P class="mb-6"
+    >L’ensemble des données d’occupation du sol présentes dans ce
+    fichier ont été hiérarchisées selon 3 niveaux de nomenclatures (4
+    niveaux à partir de l’année 2015) allant du plus grossier au plus
+    détaillé. Dans le cadre de la réalisation de notre prototype, nous
+    avons retenu l’année 2021 (année la plus récente) et le deuxième
+    niveau de classification qui offrent un niveau de détail jugé
+    suffisant pour notre analyse (classification différenciée des
+    habitat forestiers et niveaux de densification des zones
+    d’habitations par exemple).</P
+  >
+
+  <P class="mb-6"
+    >Bien que des données d’identification des habitats naturels aient
+    été réalisées par l’association Les Écologistes de l’Euzière dans
+    le cadre de l’Atlas de Biodiversité Communale de la Ville de
+    Grabels, nous ne les avons pas retenues à ce stade pour la
+    réalisation de notre prototype.</P
+  >
+
+  <P class="mb-6"
+    >Nous justifions ce choix pour les raisons suivantes :</P
+  >
+  <List
+    tag="ol"
+    list="decimal"
+    olClass="text-black  dark:text-gray-400 mb-3 font-normal pl-5 mt-2 space-y-1"
+  >
+    <Li>Méthodologie de définition et aire spatiale différentes</Li>
+    <Li
+      >Apport non significatif pour la définition des coûts de
+      dispersion (en particulier sur les zones d’habitations)</Li
+    >
+  </List>
+
+  <P class="mb-6"
+    >Néanmoins ces données de définition des habitats naturels seront
+    d’une grande utilité pour préciser la modélisation des trames
+    écologiques. Ces données pourraient être utilisées en amont de la
+    modélisation pour qualifier avec une plus grande précision les
+    tâches d’habitats et/ou a posteriori pour vérifier la corrélation
+    (regression logistique) entre les observations de terrain
+    (présence/ absence) et la modélisation du graphe paysager.
+  </P>
+
+  <P class="mb-6"
+    >Une première analyse visuelle des données d’occupation du sol a
+    permis de diagnostiquer des ruptures de continuités sur les
+    entités géographiques représentant des infrastructures de
+    transport (routes, autoroutes, lignes ferroviaire…). Les
+    infrastructures de transport constituent des obstacles de taille
+    aux déplacements des espèces terrestres. De ce fait, elles doivent
+    considérées comme des marqueurs de la fragmentation des
+    continuités écologiques pour ces espèces.
+  </P>
+  <P class="mb-6"
+    >Ainsi, une attention particulière doit être accordée à la
+    précision et la qualité géographique de ces entités sans quoi
+    l’ensemble de la modélisation du graphe paysager risque d’être
+    biaisée, voire de produire à des calculs erronés de connectivité.</P
+  >
+
   <H2 text="3. Paramétrage du graphe paysager" />
   <Draft />
   <div class="m-10">
@@ -182,7 +293,9 @@
       </TableHead>
       <TableBody tableBodyClass="divide-y">
         <TableBodyRow>
-          <TableBodyCell>Forêt de conifères</TableBodyCell>
+          <TableBodyCell
+            >Forêt mixtes et/ou à prédominance de feuillus</TableBodyCell
+          >
           <TableBodyCell>1 (habitat)</TableBodyCell>
         </TableBodyRow>
         <TableBodyRow>
@@ -202,33 +315,4 @@
 
   <H2 text="5. Références et sources" />
   <Draft />
-  <P>
-    Nullam ultrices nisi sit amet ex convallis dapibus nec in ligula.
-    Phasellus vitae dictum ex. Cras vel sapien eu justo maximus
-    gravida et et ipsum. Vivamus malesuada, ipsum ac auctor
-    scelerisque, leo risus vehicula ligula, lobortis feugiat magna
-    metus ac felis. Praesent a purus sed metus hendrerit tempus.
-    Aenean ultrices cursus augue, in rutrum tortor. Phasellus
-    tincidunt et leo sed bibendum. Duis eu porttitor sapien. Donec
-    malesuada, libero et faucibus efficitur, nisl enim sollicitudin
-    dolor, in sollicitudin nisl turpis eget quam. Etiam sagittis et
-    massa ut ornare. Mauris tincidunt pellentesque laoreet. Sed
-    fringilla justo et ex dapibus, ut porttitor nisl dictum. Maecenas
-    nisi velit, efficitur ut neque et, ullamcorper commodo nibh. Ut
-    nec elit vestibulum ipsum tempus pulvinar ut non quam. Proin
-    porttitor tincidunt eleifend. Etiam rhoncus, diam eu dapibus
-    iaculis, nibh augue ultrices mi, non fringilla urna tortor sed
-    odio. Nam odio nunc, mollis at elit vel, tristique auctor nibh.
-    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-    posuere cubilia curae; Praesent eu nisl nec urna vestibulum
-    tristique. Quisque vitae ex tempus, mollis lorem in, porttitor
-    tellus. Integer maximus egestas diam eu pretium. Proin non commodo
-    nibh. Phasellus blandit facilisis venenatis. Aenean urna tortor,
-    rhoncus vitae mi ut, dignissim vulputate metus. Aliquam efficitur
-    risus ultricies lacus placerat volutpat. Sed quis tellus id augue
-    dignissim molestie. Aliquam blandit, velit vel lacinia commodo,
-    turpis diam maximus velit, sit amet tempor ipsum libero eu risus.
-    Nulla dictum vehicula lacus, quis pellentesque purus consectetur
-    sit amet.
-  </P>
 </Container>

@@ -24,16 +24,16 @@
     <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
       <div class="rounded-md shadow">
         <a
-          href="/explorer/trame-forestiere"
+          href="/presentation"
           class="flex w-full items-center justify-center rounded-md border border-transparent bg-teal-600 px-8 py-3 text-base font-medium text-white hover:bg-teal-700 md:py-4 md:px-10 md:text-lg"
-          >Graphes</a
+          >Présentation</a
         >
       </div>
       <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
         <a
-          href="/explorer/indice-parcellaire-vegetation"
+          href="/explorer/trame-forestiere"
           class="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-teal-600 hover:bg-gray-50 md:py-4 md:px-10 md:text-lg"
-          >Indicateurs</a
+          >Graphes</a
         >
       </div>
     </div>
@@ -124,10 +124,10 @@
               Géovisualisation
             </p>
           </dt>
-          <dd class="mt-2 text-base text-gray-500">
+          <!-- <dd class="mt-2 text-base text-gray-500">
             Consequuntur omnis dicta cumque, inventore atque ab
             dolores aspernatur tempora ab doloremque.
-          </dd>
+          </dd> -->
         </div>
 
         <div>
@@ -155,13 +155,13 @@
             <p
               class="mt-5 text-lg font-medium leading-6 text-gray-900"
             >
-              Analyse diachronique
+              Indicateurs spatiaux
             </p>
           </dt>
-          <dd class="mt-2 text-base text-gray-500">
+          <!-- <dd class="mt-2 text-base text-gray-500">
             Corporis quisquam nostrum nulla veniam recusandae
             temporibus aperiam officia incidunt at distinctio ratione.
-          </dd>
+          </dd> -->
         </div>
 
         <div>
@@ -192,11 +192,11 @@
               Continuités écologiques
             </p>
           </dt>
-          <dd class="mt-2 text-base text-gray-500">
+          <!-- <dd class="mt-2 text-base text-gray-500">
             Omnis, illo delectus? Libero, possimus nulla nemo tenetur
             adipisci repellat dolore eligendi velit doloribus
             mollitia.
-          </dd>
+          </dd> -->
         </div>
 
         <div>
@@ -224,17 +224,18 @@
             <p
               class="mt-5 text-lg font-medium leading-6 text-gray-900"
             >
-              Méthodologie ouverte
+              Méthodologie et données ouvertes
             </p>
           </dt>
-          <dd class="mt-2 text-base text-gray-500">
+          <!-- <dd class="mt-2 text-base text-gray-500">
             Veniam necessitatibus reiciendis fugit explicabo dolorem
             nihil et omnis assumenda odit? Quisquam unde accusantium.
-          </dd>
+          </dd> -->
         </div>
       </dl>
     </div>
   </div>
+  et
 </div>
 <footer>
   <Footer />

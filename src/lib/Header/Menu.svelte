@@ -106,9 +106,9 @@
                             Trame forestière
                           </h4>
                           <p class="mt-1 text-sm text-gray-500">
-                            Eget ullamcorper ac ut vulputate fames nec
-                            mattis pellentesque elementum. Viverra
-                            tempor id mus.
+                            Modélisation des continuités forestières
+                            utilisant l'écureuil roux comme modèle
+                            biologique.
                           </p>
                         </div>
                       </a>
@@ -133,9 +133,9 @@
                             Milieux ouverts thermophiles
                           </h4>
                           <p class="mt-1 text-sm text-gray-500">
-                            Eget ullamcorper ac ut vulputate fames nec
-                            mattis pellentesque elementum. Viverra
-                            tempor id mus.
+                            Modélisation de la continuité des milieux
+                            ouverts thermophiles utilisant le lézard
+                            ocelé comme modèle biologique.
                           </p>
                         </div>
                       </a>
@@ -160,7 +160,7 @@
                     Indicateurs spatiaux
                   </h3>
                   <ul role="list" class="mt-6 space-y-6">
-                    <li class="flow-root">
+                    <!-- <li class="flow-root">
                       <a
                         href="/explorer/analyse-diachronique"
                         class="-m-3 flex rounded-lg p-3 transition duration-150 ease-in-out hover:bg-gray-100"
@@ -186,7 +186,7 @@
                           </p>
                         </div>
                       </a>
-                    </li>
+                    </li> -->
 
                     <li class="flow-root">
                       <a

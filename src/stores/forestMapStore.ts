@@ -48,7 +48,7 @@ const INITIAL_SOURCES: Source[] = [
     id: 'forest_edges',
     label: 'Liens du graphe',
     layerType: 'GeoJsonLayer',
-    description: 'Lorem ipsum',
+    description: 'Liaisons topologiques entre les noeuds du graphe',
     layerProps: {
       id: 'forest_edges',
       stroked: false,
@@ -67,9 +67,9 @@ const INITIAL_SOURCES: Source[] = [
   },
   {
     id: 'forest_paths',
-    label: 'Chemins moindre-coût',
+    label: 'Corridors modélisés',
     layerType: 'GeoJsonLayer',
-    description: 'Lorem ipsum',
+    description: 'Chemin de moindre-coût reliant les habitats',
     layerProps: {
       id: 'forest_paths',
       stroked: false,
@@ -78,8 +78,8 @@ const INITIAL_SOURCES: Source[] = [
       extruded: true,
       data: '/geojson/forest/paths.json',
       lineWidthScale: 5,
-      lineWidthMinPixels: 1,
-      getLineColor: chroma('turquoise').rgb(),
+      lineWidthMinPixels: 4,
+      getLineColor: chroma('green').rgb(),
       // getElevation: (d: any) => {
       // 	return d.properties.surface_m2 / 10;
       // },
@@ -88,9 +88,10 @@ const INITIAL_SOURCES: Source[] = [
   },
   {
     id: 'forest_subgrahs',
-    label: 'Composantes du graphe paysager',
+    label: 'Sous-graphes paysagers',
     layerType: 'GeoJsonLayer',
-    description: 'Lorem ipsum',
+    description:
+      "Ensemble d'habitats connectés d'après les paramètres de modélisation",
     layerProps: {
       id: 'forest_subgrahs',
       visible: true,
@@ -111,15 +112,16 @@ const INITIAL_SOURCES: Source[] = [
 
   {
     id: 'forest_patches',
-    label: 'Habitat (Sciurus vulgaris)',
+    label: 'Habitat',
     layerType: 'GeoJsonLayer',
-    description: 'Lorem ipsum',
+    description:
+      "Catégories d'occupation du sol favorables à l'installation de l'écureuil roux (Sciurus vulgaris)",
     layerProps: {
       id: 'forest_patches',
       pickable: true,
       stroked: false,
       filled: true,
-      extruded: true,
+      // extruded: true,
       visible: false,
       data: '/geojson/forest/patches_simple.geojson',
       lineWidthScale: 20,
@@ -128,11 +130,11 @@ const INITIAL_SOURCES: Source[] = [
       getLineColor: [160, 160, 180, 200],
       getPointRadius: 100,
       getLineWidth: 1,
-      getElevation: d =>
-        elevationScale(
-          [0, 3.79e7],
-          d.properties?.['_IF_d1000_p0.5_beta1_Graph2']
-        ),
+      // getElevation: d =>
+      //   elevationScale(
+      //     [0, 3.79e7],
+      //     d.properties?.['_IF_d1000_p0.5_beta1_Graph2']
+      //   ),
     },
   },
   {

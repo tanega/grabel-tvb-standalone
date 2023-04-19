@@ -1,13 +1,14 @@
 <script lang="ts">
   // import Motion from 'svelte-motion/src/motion/MotionSSR.svelte'
   // import AnimatePresence from 'svelte-motion/src/components/AnimatePresence/AnimatePresence.svelte'
-  import { Motion, AnimatePresence } from 'svelte-motion'
+  import { Motion } from 'svelte-motion'
+  import AnimatePresence from 'svelte-motion/src/components/AnimatePresence/AnimatePresence.svelte'
 
   export let imgUrl =
-    'https://images.unsplash.com/photo-1448375240586-882707db888b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80'
+    'https://image.over-blog.com/XqOdauvV_njJTZhahcSwR_bfrpE=/filters:no_upscale()/image%2F0186682%2F20230205%2Fob_ba099e_10.jpg'
   export let title = 'Trame forestière'
   export let description =
-    'Eget ullamcorper ac ut vulputate fames nec mattis pellentesque elementum. Viverra tempor idmus.'
+    "Modélisation des continuités forestières utilisant l'écureuil roux comme modèle biologique."
   let isOpen = false
 
   function handleEscape({ key }: KeyboardEvent) {
